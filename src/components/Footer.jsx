@@ -2,7 +2,7 @@
 export default function footer() {
   return (
     <div>
-    <footer className="footer bg-neutral text-neutral-content items-center p-4 ">
+    <footer className="footer bg-lime-200 text-black items-center p-4 fixed bottom-0">
   <aside className="grid-flow-col items-center">
     <svg
       width="36"

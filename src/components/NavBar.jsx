@@ -2,9 +2,9 @@
 export default function NavBar() {
   return (
     <div>
-    <div className="navbar bg-base-300">
+    <div className="navbar bg-lime-100">
 <div className="flex-1">
-  <a className="btn btn-ghost text-xl" >⚡DevTinder</a>
+  <a className="btn btn-ghost text-xl text-black font-bold " >⚡DevTinder</a>
 </div>
 <div className="flex-none gap-2">
  

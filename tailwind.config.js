@@ -13,7 +13,7 @@ export default {
     daisyui,
   ],
   daisyui: {
-    themes: ["business"],
+    themes: ["cmky"],
   },
 
 }
