@@ -16,6 +16,7 @@ export default function Login() {
   const [hideBearImgs , setHideBearImgs] = useState([])
   const [watchBearImgs , setWatchBearImgs] = useState([])
   const [currentBearImg , setCurrentBearImg] = useState(null)
+  const [error , setError] = useState("")
   const Navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -32,7 +33,7 @@ export default function Login() {
         
         
       } catch (error) {
-         console.log(error);
+          setError(error?.response?.data || "Something went wrong")
          
       } 
      
@@ -86,15 +87,15 @@ export default function Login() {
 
 <div className="card bg-base-100 w-96 shadow-xl">
 <div className="flex font-bold text-2xl justify-center items-center">DevTinder</div>
-  <figure className="px-10 pt-10">
+  <figure className="px-10 pt-7">
     <img
       src={currentBearImg ?? watchBearImgs[0]}
       alt="Login Page"
-      className="rounded-xl" />
+      className="rounded-xl w-60 " />
   </figure>
   <div className="card-body items-center text-center">
 
-    <div className="">
+    <div className="-mt-2">
          <div className="p-3 w-72">
          <input
          value={emailId} 
@@ -121,7 +122,7 @@ export default function Login() {
           className="p-2 px-2 w-full border border-black"/>
           </div>
     </div> 
-   
+     <div  className="text-red-500 font-bold w-full flex justify-start">{error}</div>
     <div className="card-actions">
       <button onClick={handleLogin} className="btn btn-primary bg-lime-300">Login</button>
     </div>

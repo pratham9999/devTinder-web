@@ -18,6 +18,7 @@ export default function Signup() {
   const [currentBearImg , setCurrentBearImg] = useState(null)
   const [firstName , setFirstName] = useState("")
   const [lastName , setLastName] = useState("")
+  const [error , setError] = useState("")
   const Navigate = useNavigate()
 
   const handleSignup = async ()=>{
@@ -33,6 +34,7 @@ export default function Signup() {
      
       
      } catch (error) {
+       setError(error.message)
         console.log(error);
         
      }
@@ -105,11 +107,11 @@ export default function Signup() {
     <img
       src={currentBearImg ?? watchBearImgs[0]}
       alt="Login Page"
-      className="rounded-xl" />
+      className="rounded-xl w-60" />
   </figure>
   <div className="card-body items-center text-center">
 
-    <div className="">
+    <div className="-mt-2">
          <div className="p-1 w-72">
          <input 
          value={firstName}
@@ -158,7 +160,7 @@ export default function Signup() {
           className="p-2 px-2 w-full border border-black"/>
           </div>
     </div> 
-   
+    <div className="w-full flex justify-start">{error}</div>
     <div className="card-actions">
       <button onClick={handleSignup} className="btn btn-primary bg-lime-300">Signup</button>
     </div>
