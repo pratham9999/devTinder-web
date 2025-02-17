@@ -1,8 +1,10 @@
+import { useSelector } from "react-redux"
 
 export default function footer() {
+  const user = useSelector((store)=>store.user)
   return (
     <div>
-    <footer className="footer bg-lime-200 text-black items-center p-4 fixed bottom-0">
+    {user && <footer className="footer bg-slate-200 text-black items-center p-4 fixed bottom-0">
   <aside className="grid-flow-col items-center">
     <svg
       width="36"
@@ -52,7 +54,7 @@ export default function footer() {
       </svg>
     </a>
   </nav>
-</footer>
+</footer>}
 </div>
   )
 }

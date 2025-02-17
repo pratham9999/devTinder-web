@@ -1,8 +1,11 @@
-/* eslint-disable no-unused-vars */
 import { useRef } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
+import axios  from "axios";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
+import { BASE_URL } from "../utils/Constant";
 
 export default function Login() {
   const emailIdRef = useRef(null)
@@ -13,7 +16,27 @@ export default function Login() {
   const [hideBearImgs , setHideBearImgs] = useState([])
   const [watchBearImgs , setWatchBearImgs] = useState([])
   const [currentBearImg , setCurrentBearImg] = useState(null)
-  const Navigate = useNavigate()
+  const Navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogin = async()=>{
+      
+      try {
+        const res = await axios.post(BASE_URL+"/login" , {
+          emailId ,
+          password,
+        } , {withCredentials:true})
+        
+        dispatch(addUser(res.data));
+        Navigate("/")
+        
+        
+      } catch (error) {
+         console.log(error);
+         
+      } 
+     
+  }
 
 
   useEffect(()=>{
@@ -73,7 +96,8 @@ export default function Login() {
 
     <div className="">
          <div className="p-3 w-72">
-         <input 
+         <input
+         value={emailId} 
          onFocus={()=>{
           setCurrentFocus("emailId")
          }}
@@ -86,8 +110,10 @@ export default function Login() {
           </div>
          <div className="p-3 w-72">
           <input 
+          value={password}
           onFocus={()=> setCurrentFocus("PASSWORD")}
           placeholder="Password" 
+          type="password"
           onChange={(e)=>{
            setPassword(e.target.value)
           }}
@@ -97,7 +123,7 @@ export default function Login() {
     </div> 
    
     <div className="card-actions">
-      <button className="btn btn-primary bg-lime-300">Login</button>
+      <button onClick={handleLogin} className="btn btn-primary bg-lime-300">Login</button>
     </div>
     <div className=" w-full p-2 font-bold flex justify-end">New user?<div onClick={()=>{
       Navigate("/signup")

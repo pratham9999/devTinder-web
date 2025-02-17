@@ -1,8 +1,9 @@
-/* eslint-disable no-unused-vars */
 import { useRef } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { BASE_URL } from "../utils/Constant";
 
 export default function Signup() {
   const emailIdRef = useRef(null)
@@ -18,6 +19,24 @@ export default function Signup() {
   const [firstName , setFirstName] = useState("")
   const [lastName , setLastName] = useState("")
   const Navigate = useNavigate()
+
+  const handleSignup = async ()=>{
+
+     try {
+      const res = await axios.post( BASE_URL+"/signup" , {
+        firstName ,
+        lastName,
+        emailId,
+        password,
+   } , {withCredentials : true})
+     console.log(res.data);
+     
+      
+     } catch (error) {
+        console.log(error);
+        
+     }
+  }
 
 
   useEffect(()=>{
@@ -93,6 +112,7 @@ export default function Signup() {
     <div className="">
          <div className="p-1 w-72">
          <input 
+         value={firstName}
          onFocus={()=>{
           setCurrentFocus("FIRSTNAME")
          }}
@@ -106,6 +126,7 @@ export default function Signup() {
 
          <div className="p-1 w-72">
           <input 
+          value={lastName}
           onFocus={()=> setCurrentFocus("LASTNAME")}
           placeholder="Lastname" 
           onChange={(e)=>{
@@ -116,6 +137,7 @@ export default function Signup() {
           </div>
           <div className="p-1 w-72">
           <input 
+           value={emailId}
           onFocus={()=> setCurrentFocus("emailId")}
           placeholder="Email" 
           onChange={(e)=>{
@@ -126,6 +148,7 @@ export default function Signup() {
           </div>
           <div className="p-1 w-72">
           <input 
+          value={password}
           onFocus={()=> setCurrentFocus("PASSWORD")}
           placeholder="Password" 
           onChange={(e)=>{
@@ -137,7 +160,7 @@ export default function Signup() {
     </div> 
    
     <div className="card-actions">
-      <button className="btn btn-primary bg-lime-300">Signup</button>
+      <button onClick={handleSignup} className="btn btn-primary bg-lime-300">Signup</button>
     </div>
     <div className=" w-full p-2 font-bold flex justify-end">Already user?<div onClick={()=>{
       Navigate("/Login")
