@@ -47,14 +47,14 @@ export default function NavBar() {
     <ul
       tabIndex={0}
       className="menu menu-sm dropdown-content bg-slate-200 rounded-box z-[1] mt-12 w-52 p-2 shadow">
-      <li>
+      <li className="hover:bg-slate-300">
         <Link to="/profile" className="justify-between">
           Profile
-          <span className="badge">New</span>
         </Link>
       </li>
-      <li><a>Settings</a></li>
-      <li><a onClick={handleLogout} >Logout</a></li>
+      <li className="hover:bg-slate-300"><Link to= "/connections">Connections</Link></li>
+      <li className="hover:bg-slate-300"><Link to="/requests">Requests</Link></li>
+      <li className="hover:bg-slate-300"><a onClick={handleLogout} >Logout</a></li>
     </ul>
   </div>
 </div>
