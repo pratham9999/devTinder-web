@@ -13,7 +13,7 @@ const dispatch= useDispatch();
 const handleSendRequest=async (status , userId)=>{
       try {
 
-         const res = await axios.post(BASE_URL+status+"/" + userId , {} , {withCredentials : true ,})
+         const res = await axios.post(BASE_URL+ "/request/send/" + status + "/" + userId , {} , {withCredentials : true ,})
          dispatch(removeUserFromFeed(userId))
         
       } catch (error) {
@@ -38,8 +38,8 @@ const handleSendRequest=async (status , userId)=>{
         
          <p className='w-full italic min-h-[40px] max-h-[80px] overflow-hidden text-ellipsis truncate'>{about}</p>
       <div className=" pt-3 w-64 card-actions flex justify-between">
-        <button onClick={handleSendRequest("ignored" , _id)} className="btn btn-primary px-5 flex  bg-red-100">Ignore</button>
-        <button onClick={handleSendRequest("interested" , _id)} className="btn btn-primary bg-lime-300">intrested</button>
+        <button onClick={()=>{handleSendRequest("ignored" , _id)}} className="btn btn-primary px-5 flex  bg-red-100">Ignore</button>
+        <button onClick={()=>{handleSendRequest("interested" , _id)}} className="btn btn-primary bg-lime-300">intrested</button>
       </div>
     </div>
   </div></div>

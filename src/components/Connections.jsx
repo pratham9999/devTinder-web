@@ -39,7 +39,7 @@ export default function Connections() {
     if(connections.length === 0) return <h1>No connections found !!</h1>
 
   return (
-    <div className="text-center my-10">
+    <div className="main-content text-center my-10 ">
       <h1 className="font-bold text-3xl">Connections</h1>
 
        {connections.map((connection)=>{
@@ -56,8 +56,7 @@ export default function Connections() {
               <div className="">
               <button className="bg-lime-200 rounded-btn px-5 py-2">Chat</button>
               </div>
-          </div>
-              
+          </div>  
            )
        })}
 

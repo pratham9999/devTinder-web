@@ -4,7 +4,7 @@ export default function footer() {
   const user = useSelector((store)=>store.user)
   return (
     <div>
-    {user && <footer className="footer bg-slate-200 text-black items-center p-4 fixed bottom-0">
+    {user && <footer className="footer bg-slate-200 text-black items-center p-4 relative">
   <aside className="grid-flow-col items-center">
     <svg
       width="36"
