@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import NavBar from './NavBar.jsx'
 import Footer from './Footer.jsx'
 import { Outlet, useNavigate } from 'react-router-dom'

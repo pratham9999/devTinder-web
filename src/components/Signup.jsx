@@ -4,6 +4,9 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "../utils/Constant";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
+
 
 export default function Signup() {
   const emailIdRef = useRef(null)
@@ -19,7 +22,9 @@ export default function Signup() {
   const [firstName , setFirstName] = useState("")
   const [lastName , setLastName] = useState("")
   const [error , setError] = useState("")
+  
   const Navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const handleSignup = async ()=>{
 
@@ -30,7 +35,9 @@ export default function Signup() {
         emailId,
         password,
    } , {withCredentials : true})
-     console.log(res.data);
+   dispatch(addUser(res.data.data));
+        Navigate("/")
+     console.log(res.data.data);
      
       
      } catch (error) {
