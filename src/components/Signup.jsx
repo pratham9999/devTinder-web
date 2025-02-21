@@ -155,8 +155,9 @@ export default function Signup() {
           ref={emailIdRef}
           className="p-2 px-2 w-full border border-black"/>
           </div>
-          <div className="p-1 w-72">
+          <div className="pr-1 w-72">
           <input 
+          type="password"
           value={password}
           onFocus={()=> setCurrentFocus("PASSWORD")}
           placeholder="Password" 

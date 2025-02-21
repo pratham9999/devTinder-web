@@ -115,7 +115,7 @@ export default function EditProfile({user}) {
 
           </div>
     </div> 
-     <p className="font-bold min-h-[40px] text-red-500" >{error || ""}</p>
+     <p className="font-bold min-h-[40px] text-red-500 overflow-hidden text-ellipsis truncate " >{error || ""}</p>
     <div className="card-actions">
       <button onClick={handleEdit} className="btn btn-primary bg-lime-300">Save</button>
     </div>

@@ -27,7 +27,7 @@ export default function NavBar() {
    }
   return (
     <div>
-    {user && <div className="navbar bg-slate-200">
+    {user && <div className="navbar border border-b-black ">
 <div className="flex-1">
   <Link to={"/"} className="btn btn-ghost text-xl text-black font-bold " >⚡DevTinder</Link>
 </div>
@@ -46,15 +46,15 @@ export default function NavBar() {
    
     <ul
       tabIndex={0}
-      className="menu menu-sm dropdown-content bg-slate-200 rounded-box z-[1] mt-12 w-52 p-2 shadow">
-      <li className="hover:bg-slate-300">
+      className="menu menu-sm dropdown-content bg-lime-100 rounded-box z-[1] mt-12 w-52 p-2 shadow">
+      <li className="hover:bg-lime-200">
         <Link to="/profile" className="justify-between">
           Profile
         </Link>
       </li>
-      <li className="hover:bg-slate-300"><Link to= "/connections">Connections</Link></li>
-      <li className="hover:bg-slate-300"><Link to="/requests">Requests</Link></li>
-      <li className="hover:bg-slate-300"><a onClick={handleLogout} >Logout</a></li>
+      <li className="hover:bg-lime-200"><Link to= "/connections">Connections</Link></li>
+      <li className="hover:bg-lime-200"><Link to="/requests">Requests</Link></li>
+      <li className="hover:bg-lime-200"><a onClick={handleLogout} >Logout</a></li>
     </ul>
   </div>
 </div>
