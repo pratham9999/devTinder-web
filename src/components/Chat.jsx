@@ -4,30 +4,54 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import { createSocketConnection } from "../utils/socket";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { BASE_URL } from "../utils/Constant";
 
 export default function Chat() {
     const {id} = useParams();
     const [messages , setMessages] = useState([])
     const [newMessage , setNewMessage] = useState();
     const user = useSelector((store) => store.user)
-    const connections = useSelector((store)=> store.connections) || []
+    // const connections = useSelector((store)=> store.connections) || []
     const userId = user?._id
     
     // Get the connection's firstName using the id from params
-    const connectionDetails = connections.find(connection => connection?._id === id);
-    const connectionFirstName = connectionDetails?.firstName;
-      
-    useEffect(()=>{
+    // const connectionDetails = connections.find(connection => connection?._id === id);
+    // const connectionFirstName = connectionDetails?.firstName;
 
-     
+    
+    const fetchChatMessages = async ()=>{
+
+      const chat = await axios.get(BASE_URL +"/chat/"+ id ,{
+        withCredentials : true,
+      })
+
+      console.log(chat.data.messages);
+
+      const chatMessages =  chat?.data?.messages.map((msg)=>{
+           const {senderId , text} = msg ;
+           return {
+              firstName : senderId?.firstName,
+              text ,
+           }
+
+      })
+
+      setMessages(chatMessages)
       
+    }
+      
+   
+    useEffect(()=>{
+      fetchChatMessages()
+
+    } , [])
+
+    useEffect(()=>{
 
       if(!userId) {
         return
       }
-
-      
-
       const socket = createSocketConnection()
       socket.emit("joinChat" , {firstName : user.firstName , userId , id})
       socket.on("messageReceived" , ({firstName , text})=>{
@@ -46,30 +70,29 @@ export default function Chat() {
       const socket = createSocketConnection()
 
       socket.emit("sendMessage" , {firstName : user.firstName , userId , id , text : newMessage})
-      newMessage("")
-
+      setNewMessage(" ")
     }
       
 
   return (
     <div className="w-3/4 mx-auto  border border-gray-200 my-5 h-[80vh] flex flex-col mb-20 ">
 
-       <h1 className=" border-b border-gray-200 flex px-6 py-5 font-bold text-2xl ">Chat with {connectionFirstName}</h1>
+       <h1 className=" border-b border-gray-200 flex px-6 py-5 font-bold text-2xl ">Chat</h1>
        
         
-        <div className="  flex-1 overflow-y-scroll p-5">
+        <div className=" scroll-smooth md:scroll-auto  flex-1 overflow-y-scroll p-5">
              {/* display messages*/}
              {messages.map((msg , index)=>{
+              const isSender = user.firstName === msg.firstName;
                   return(
                     
-                    <div key={index} className= " flex flex-col chat chat-start">
+                    <div key={index} className= {` flex flex-col chat ${isSender ? "chat-end" : "chat-start"}`}>
                      
-  <div className="chat-heade">
+  <div className="chat-header">
     {msg.firstName}
   
-    <time className="text-xs opacity-50 p-1">2 hours ago</time>
   </div>
-  <div className="bg-gray-200 p-1 rounded shadow-lg">
+  <div className={` ${isSender ? "bg-lime-300 rounded-l-xl" : "bg-gray-200 rounded-r-xl" } p-1  shadow-lg`}>
   <div className="chat-bubble">{msg.text}</div>
   </div>
 </div>
